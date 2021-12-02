@@ -20,4 +20,12 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\seane\source\repos\AdventOfCode2021\AdventOfCode\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\seane\source\repos\AdventOfCode2021\AdventOfCode\.editorconfig" />
+  </ItemGroup>
+
 </Project>
