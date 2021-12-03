@@ -45,6 +45,7 @@ internal class Day_03 : BaseDay
         while (column < arrayWidth)
         {
             var bitCount = 0;
+
             for (int i = 0; i < oxygenGeneratorRatings.Count; i++)
             {
                 bitCount += oxygenGeneratorRatings[i][column] == '1' ? 1 : 0;
@@ -54,6 +55,7 @@ internal class Day_03 : BaseDay
             oxygenGeneratorRatings = oxygenGeneratorRatings.Count != 1 ? oxygenGeneratorRatings.Where(x => x[column] == popularBit).ToList() : oxygenGeneratorRatings;
 
             bitCount = 0;
+
             for (int i = 0; i < co2ScrubberRatings.Count; i++)
             {
                 bitCount += co2ScrubberRatings[i][column] == '1' ? 1 : 0;
