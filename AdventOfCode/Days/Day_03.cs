@@ -26,8 +26,8 @@ internal class Day_03 : BaseDay
                 bitCount += _binaryInput[i][column] == '1' ? 1 : 0;
             }
 
-            gammaRate.Append(bitCount > arrayHeight - bitCount ? "1" : "0");
-            epsilonRate.Append(bitCount > arrayHeight - bitCount ? "0" : "1");
+            gammaRate.Append(bitCount >= arrayHeight - bitCount ? "1" : "0");
+            epsilonRate.Append(bitCount >= arrayHeight - bitCount ? "0" : "1");
 
             column++;
         }
@@ -39,34 +39,34 @@ internal class Day_03 : BaseDay
     {
         var column = 0;
         var arrayWidth = _binaryInput[0].Length;
-        var oxygenGeneratorRatings = _binaryInput.ToList();
-        var co2ScrubberRatings = _binaryInput.ToList();
+        var oxygenGeneratorRatings = _binaryInput;
+        var co2ScrubberRatings = _binaryInput;
 
         while (column < arrayWidth)
         {
-            var bitCount = 0;
+            char mostPopularBit;
 
-            for (int i = 0; i < oxygenGeneratorRatings.Count; i++)
-            {
-                bitCount += oxygenGeneratorRatings[i][column] == '1' ? 1 : 0;
-            }
+            mostPopularBit = GetMostPopularBit(column, oxygenGeneratorRatings);
+            oxygenGeneratorRatings = oxygenGeneratorRatings.Length != 1 ? oxygenGeneratorRatings.Where(x => x[column] == mostPopularBit).ToArray() : oxygenGeneratorRatings;
 
-            var popularBit = bitCount >= oxygenGeneratorRatings.Count - bitCount ? '1' : '0';
-            oxygenGeneratorRatings = oxygenGeneratorRatings.Count != 1 ? oxygenGeneratorRatings.Where(x => x[column] == popularBit).ToList() : oxygenGeneratorRatings;
-
-            bitCount = 0;
-
-            for (int i = 0; i < co2ScrubberRatings.Count; i++)
-            {
-                bitCount += co2ScrubberRatings[i][column] == '1' ? 1 : 0;
-            }
-
-            var leastPopularBit = bitCount < co2ScrubberRatings.Count - bitCount ? '1' : '0';
-            co2ScrubberRatings = co2ScrubberRatings.Count != 1 ? co2ScrubberRatings.Where(x => x[column] == leastPopularBit).ToList() : co2ScrubberRatings;
+            mostPopularBit = GetMostPopularBit(column, co2ScrubberRatings);
+            co2ScrubberRatings = co2ScrubberRatings.Length != 1 ? co2ScrubberRatings.Where(x => x[column] != mostPopularBit).ToArray() : co2ScrubberRatings;
 
             column++;
         }
 
-        return new($"{Convert.ToInt32(new string(oxygenGeneratorRatings.First()), 2) * Convert.ToInt32(new string(co2ScrubberRatings.First()), 2)}");
+        return new($"{Convert.ToInt32(new string(oxygenGeneratorRatings[0]), 2) * Convert.ToInt32(new string(co2ScrubberRatings[0]), 2)}");
+    }
+
+    private char GetMostPopularBit(int column, char[][] ratingsList)
+    {
+        var bitCount = 0;
+
+        for (int i = 0; i < ratingsList.Length; i++)
+        {
+            bitCount += ratingsList[i][column] == '1' ? 1 : 0;
+        }
+
+        return bitCount >= ratingsList.Length - bitCount ? '1' : '0';
     }
 }
