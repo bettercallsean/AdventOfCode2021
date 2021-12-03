@@ -2,32 +2,26 @@
 
 internal class Day_03 : BaseDay
 {
-    private readonly char[][] _binaryInput;
+    private readonly char[][] _input;
 
     public Day_03()
     {
-        _binaryInput = File.ReadAllLines(InputFilePath).Select(x => x.ToCharArray()).ToArray();
+        _input = File.ReadAllLines(InputFilePath).Select(x => x.ToCharArray()).ToArray();
     }
 
     public override ValueTask<string> Solve_1()
     {
         var column = 0;
-        var arrayWidth = _binaryInput[0].Length;
-        var arrayHeight = _binaryInput.Length;
+        var arrayWidth = _input[0].Length;
         var gammaRate = new StringBuilder();
         var epsilonRate = new StringBuilder();
 
         while (column < arrayWidth)
         {
-            var bitCount = 0;
+            var mostPopularBit = GetMostPopularBit(column, _input);
 
-            for (int i = 0; i < arrayHeight; i++)
-            {
-                bitCount += _binaryInput[i][column] == '1' ? 1 : 0;
-            }
-
-            gammaRate.Append(bitCount >= arrayHeight - bitCount ? "1" : "0");
-            epsilonRate.Append(bitCount >= arrayHeight - bitCount ? "0" : "1");
+            gammaRate.Append(mostPopularBit);
+            epsilonRate.Append(mostPopularBit == '1' ? '0' : '1');
 
             column++;
         }
@@ -38,19 +32,25 @@ internal class Day_03 : BaseDay
     public override ValueTask<string> Solve_2()
     {
         var column = 0;
-        var arrayWidth = _binaryInput[0].Length;
-        var oxygenGeneratorRatings = _binaryInput;
-        var co2ScrubberRatings = _binaryInput;
+        var arrayWidth = _input[0].Length;
+        var oxygenGeneratorRatings = _input;
+        var co2ScrubberRatings = _input;
 
         while (column < arrayWidth)
         {
             char mostPopularBit;
 
-            mostPopularBit = GetMostPopularBit(column, oxygenGeneratorRatings);
-            oxygenGeneratorRatings = oxygenGeneratorRatings.Length != 1 ? oxygenGeneratorRatings.Where(x => x[column] == mostPopularBit).ToArray() : oxygenGeneratorRatings;
+            if (oxygenGeneratorRatings.Length != 1)
+            {
+                mostPopularBit = GetMostPopularBit(column, oxygenGeneratorRatings);
+                oxygenGeneratorRatings = oxygenGeneratorRatings.Where(x => x[column] == mostPopularBit).ToArray();
+            }
 
-            mostPopularBit = GetMostPopularBit(column, co2ScrubberRatings);
-            co2ScrubberRatings = co2ScrubberRatings.Length != 1 ? co2ScrubberRatings.Where(x => x[column] != mostPopularBit).ToArray() : co2ScrubberRatings;
+            if (co2ScrubberRatings.Length != 1)
+            {
+                mostPopularBit = GetMostPopularBit(column, co2ScrubberRatings);
+                co2ScrubberRatings = co2ScrubberRatings.Where(x => x[column] != mostPopularBit).ToArray();
+            }
 
             column++;
         }
@@ -58,15 +58,15 @@ internal class Day_03 : BaseDay
         return new($"{Convert.ToInt32(new string(oxygenGeneratorRatings[0]), 2) * Convert.ToInt32(new string(co2ScrubberRatings[0]), 2)}");
     }
 
-    private char GetMostPopularBit(int column, char[][] ratingsList)
+    private char GetMostPopularBit(int column, char[][] binaryArray)
     {
         var bitCount = 0;
 
-        for (int i = 0; i < ratingsList.Length; i++)
+        for (int i = 0; i < binaryArray.Length; i++)
         {
-            bitCount += ratingsList[i][column] == '1' ? 1 : 0;
+            bitCount += binaryArray[i][column] == '1' ? 1 : 0;
         }
 
-        return bitCount >= ratingsList.Length - bitCount ? '1' : '0';
+        return bitCount >= binaryArray.Length - bitCount ? '1' : '0';
     }
 }
