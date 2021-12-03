@@ -1,1 +1,2 @@
-﻿global using AoCHelper;
+﻿global using System.Text;
+global using AoCHelper;
