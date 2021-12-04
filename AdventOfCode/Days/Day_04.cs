@@ -42,7 +42,7 @@ internal class Day_04 : BaseDay
                             scores[boardNumber]["row"][i]++;
                             scores[boardNumber]["column"][j]++;
 
-                            if (scores[boardNumber]["row"][i] == 5 || scores[boardNumber]["column"][j] == 5)
+                            if (scores[boardNumber]["row"][i] == _arrayWidth || scores[boardNumber]["column"][j] == _arrayHeight)
                             {
                                 winningBoardNumber = boardNumber;
 
@@ -100,7 +100,7 @@ internal class Day_04 : BaseDay
                             scores[boardNumber]["row"][i]++;
                             scores[boardNumber]["column"][j]++;
 
-                            if (scores[boardNumber]["row"][i] == 5 || scores[boardNumber]["column"][j] == 5)
+                            if (scores[boardNumber]["row"][i] == _arrayWidth || scores[boardNumber]["column"][j] == _arrayHeight)
                             {
                                 lastWinningBoardNumber = boardNumber;
                                 winningBoardsList.Add(boardNumber);
@@ -138,7 +138,7 @@ internal class Day_04 : BaseDay
     private List<int[,]> CreateBingoBoards(string[] boardData)
     {
         var bingoBoards = new List<int[,]>();
-        var board = new int[5, 5];
+        var board = new int[_arrayWidth, _arrayHeight];
         var boardRow = 0;
 
         foreach (var boardLine in boardData)
@@ -154,11 +154,11 @@ internal class Day_04 : BaseDay
 
             boardRow++;
 
-            if (boardRow == 5)
+            if (boardRow == _arrayWidth)
             {
                 bingoBoards.Add(board);
 
-                board = new int[5, 5];
+                board = new int[_arrayWidth, _arrayHeight];
                 boardRow = 0;
 
                 continue;
@@ -174,7 +174,7 @@ internal class Day_04 : BaseDay
 
         for (int i = 0; i < _bingoBoards.Count; i++)
         {
-            scores.Add(new Dictionary<string, int[]> { { "row", new int[5] }, { "column", new int[5] } });
+            scores.Add(new Dictionary<string, int[]> { { "row", new int[_arrayWidth] }, { "column", new int[_arrayHeight] } });
         }
 
         return scores;
