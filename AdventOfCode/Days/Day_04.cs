@@ -23,7 +23,7 @@ internal class Day_04 : BaseDay
         var scores = GenerateScoresDictionary();
         var usedNumbers = new List<int>();
         var winningBoardNumber = -1;
-        var lastNumberCalled = 0;
+        var lastNumberCalled = -1;
 
         foreach (var number in _bingoNumbers)
         {
@@ -69,7 +69,7 @@ internal class Day_04 : BaseDay
         }
 
         var winningBoard = _bingoBoards[winningBoardNumber];
-        var score = GetBoardScore(winningBoard, usedNumbers);
+        var score = CalculateBoardScore(winningBoard, usedNumbers);
 
         return new($"{score * lastNumberCalled}");
     }
@@ -80,8 +80,8 @@ internal class Day_04 : BaseDay
         var winningBoardsList = new List<int>();
         var usedNumbers = new List<int>();
         var lastWinningBoardFound = false;
-        var lastWinningBoardNumber = 0;
-        var lastNumberCalled = 0;
+        var lastWinningBoardNumber = -1;
+        var lastNumberCalled = -1;
 
         foreach (var number in _bingoNumbers)
         {
@@ -130,7 +130,7 @@ internal class Day_04 : BaseDay
         }
 
         var winningBoard = _bingoBoards[lastWinningBoardNumber];
-        var score = GetBoardScore(winningBoard, usedNumbers);
+        var score = CalculateBoardScore(winningBoard, usedNumbers);
 
         return new($"{score * lastNumberCalled}");
     }
@@ -180,13 +180,13 @@ internal class Day_04 : BaseDay
         return scores;
     }
 
-    private int GetBoardScore(int[,] board, List<int> usedNumbers)
+    private int CalculateBoardScore(int[,] board, List<int> usedNumbers)
     {
         var score = 0;
 
-        for (int i = 0; i < board.GetLength(0); i++)
+        for (int i = 0; i < _arrayHeight; i++)
         {
-            for (int j = 0; j < board.GetLength(1); j++)
+            for (int j = 0; j < _arrayWidth; j++)
             {
                 if (!usedNumbers.Contains(board[i, j]))
                 {
