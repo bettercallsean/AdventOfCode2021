@@ -4,8 +4,7 @@ internal class Day_04 : BaseDay
 {
     private readonly int[] _bingoNumbers;
     private readonly List<int[,]> _bingoBoards;
-    private readonly int _arrayWidth;
-    private readonly int _arrayHeight;
+    private const int _arrayWidth = 5;
 
     public Day_04()
     {
@@ -13,9 +12,6 @@ internal class Day_04 : BaseDay
 
         _bingoNumbers = data[0].Split(',').Select(int.Parse).ToArray();
         _bingoBoards = CreateBingoBoards(data.Skip(2).ToArray());
-
-        _arrayWidth = _bingoBoards[0].GetLength(0);
-        _arrayHeight = _bingoBoards[0].GetLength(1);
     }
 
     public override ValueTask<string> Solve_1()
@@ -35,19 +31,19 @@ internal class Day_04 : BaseDay
 
                 for (int i = 0; i < _arrayWidth; i++)
                 {
-                    for (int j = 0; j < _arrayHeight; j++)
+                    for (int j = 0; j < _arrayWidth; j++)
                     {
                         if (board[i, j] == number)
                         {
                             scores[boardNumber]["row"][i]++;
                             scores[boardNumber]["column"][j]++;
 
-                            if (scores[boardNumber]["row"][i] == _arrayWidth || scores[boardNumber]["column"][j] == _arrayHeight)
+                            if (scores[boardNumber]["row"][i] == _arrayWidth || scores[boardNumber]["column"][j] == _arrayWidth)
                             {
                                 winningBoardNumber = boardNumber;
 
                                 i = _arrayWidth;
-                                j = _arrayHeight;
+                                j = _arrayWidth;
 
                                 break;
                             }
@@ -93,14 +89,14 @@ internal class Day_04 : BaseDay
 
                 for (int i = 0; i < _arrayWidth; i++)
                 {
-                    for (int j = 0; j < _arrayHeight; j++)
+                    for (int j = 0; j < _arrayWidth; j++)
                     {
                         if (board[i, j] == number && !winningBoardsList.Contains(boardNumber))
                         {
                             scores[boardNumber]["row"][i]++;
                             scores[boardNumber]["column"][j]++;
 
-                            if (scores[boardNumber]["row"][i] == _arrayWidth || scores[boardNumber]["column"][j] == _arrayHeight)
+                            if (scores[boardNumber]["row"][i] == _arrayWidth || scores[boardNumber]["column"][j] == _arrayWidth)
                             {
                                 lastWinningBoardNumber = boardNumber;
                                 winningBoardsList.Add(boardNumber);
@@ -108,7 +104,7 @@ internal class Day_04 : BaseDay
                                 lastWinningBoardFound = winningBoardsList.Count == _bingoBoards.Count;
 
                                 i = _arrayWidth;
-                                j = _arrayHeight;
+                                j = _arrayWidth;
 
                                 break;
                             }
@@ -138,7 +134,7 @@ internal class Day_04 : BaseDay
     private List<int[,]> CreateBingoBoards(string[] boardData)
     {
         var bingoBoards = new List<int[,]>();
-        var board = new int[_arrayWidth, _arrayHeight];
+        var board = new int[_arrayWidth, _arrayWidth];
         var boardRow = 0;
 
         foreach (var boardLine in boardData)
@@ -158,7 +154,7 @@ internal class Day_04 : BaseDay
             {
                 bingoBoards.Add(board);
 
-                board = new int[_arrayWidth, _arrayHeight];
+                board = new int[_arrayWidth, _arrayWidth];
                 boardRow = 0;
 
                 continue;
@@ -174,7 +170,7 @@ internal class Day_04 : BaseDay
 
         for (int i = 0; i < _bingoBoards.Count; i++)
         {
-            scores.Add(new Dictionary<string, int[]> { { "row", new int[_arrayWidth] }, { "column", new int[_arrayHeight] } });
+            scores.Add(new Dictionary<string, int[]> { { "row", new int[_arrayWidth] }, { "column", new int[_arrayWidth] } });
         }
 
         return scores;
@@ -184,7 +180,7 @@ internal class Day_04 : BaseDay
     {
         var score = 0;
 
-        for (int i = 0; i < _arrayHeight; i++)
+        for (int i = 0; i < _arrayWidth; i++)
         {
             for (int j = 0; j < _arrayWidth; j++)
             {
