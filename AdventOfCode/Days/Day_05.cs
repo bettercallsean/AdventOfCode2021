@@ -20,7 +20,9 @@ public class Day_05 : BaseDay
 
         foreach(var line in _lines)
         {
-            overlaps += FindOverlaps(line, true);
+            if (line[0] != line[2] && line[1] != line[3]) continue;
+
+            overlaps += FindOverlaps(line);
         }
 
         return new($"{overlaps}");
@@ -33,22 +35,17 @@ public class Day_05 : BaseDay
 
         foreach (var line in _lines)
         {
-            overlaps += FindOverlaps(line, false);
+            overlaps += FindOverlaps(line);
         }
 
         return new($"{overlaps}");
     }
 
-    private int FindOverlaps(int[] line, bool ignoreDiagonals)
+    private int FindOverlaps(int[] line)
     {
         var overlaps = 0;
         var startingCoords = new int[] { line[0], line[1] };
         var endCoords = new int[] { line[2], line[3] };
-
-        if(ignoreDiagonals && startingCoords[0] != endCoords[0] && startingCoords[1] != endCoords[1])
-        {
-            return overlaps;
-        }
 
         var horizontalDirection = 0;
         var verticalDirection = 0;
