@@ -3,7 +3,7 @@
 public class Day_05 : BaseDay
 {
     private readonly int[][] _lines;
-    private Dictionary<(int,int), int> _lineCoordinates;
+    private Dictionary<(int, int), int> _lineCoordinates;
 
     public Day_05()
     {
@@ -15,10 +15,10 @@ public class Day_05 : BaseDay
 
     public override ValueTask<string> Solve_1()
     {
-        _lineCoordinates = new Dictionary<(int,int), int>();
+        _lineCoordinates = new Dictionary<(int, int), int>();
         var overlaps = 0;
 
-        foreach(var line in _lines)
+        foreach (var line in _lines)
         {
             if (line[0] != line[2] && line[1] != line[3]) continue;
 
@@ -30,7 +30,7 @@ public class Day_05 : BaseDay
 
     public override ValueTask<string> Solve_2()
     {
-        _lineCoordinates = new Dictionary<(int,int), int>();
+        _lineCoordinates = new Dictionary<(int, int), int>();
         var overlaps = 0;
 
         foreach (var line in _lines)
@@ -54,7 +54,7 @@ public class Day_05 : BaseDay
         {
             verticalDirection = startingCoords[1] < endCoords[1] ? 1 : -1;
         }
-        else if(startingCoords[1] == endCoords[1])
+        else if (startingCoords[1] == endCoords[1])
         {
             horizontalDirection = startingCoords[0] < endCoords[0] ? 1 : -1;
         }
@@ -69,13 +69,13 @@ public class Day_05 : BaseDay
 
         while (x != endCoords[0] + horizontalDirection || y != endCoords[1] + verticalDirection)
         {
-            if (_lineCoordinates.ContainsKey((x,y)))
+            if (_lineCoordinates.ContainsKey((x, y)))
             {
-                overlaps += ++_lineCoordinates[(x,y)] == 2 ? 1 : 0;
+                overlaps += ++_lineCoordinates[(x, y)] == 2 ? 1 : 0;
             }
             else
             {
-                _lineCoordinates.Add((x,y), 1);
+                _lineCoordinates.Add((x, y), 1);
             }
 
             x += horizontalDirection;
