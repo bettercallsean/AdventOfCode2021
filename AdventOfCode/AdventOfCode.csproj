@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <None Update="Inputs\*">
+    </None>
+    <None Update="Inputs\05.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -28,4 +30,9 @@
     <None Include="C:\Users\seane\source\repos\AdventOfCode2021\AdventOfCode\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Days\Day_05.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
 </Project>
