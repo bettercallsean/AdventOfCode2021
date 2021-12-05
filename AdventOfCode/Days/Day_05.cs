@@ -25,7 +25,7 @@ public class Day_05 : BaseDay
             overlaps += FindOverlaps(line);
         }
 
-        return new($"{overlaps}");
+        return new(overlaps.ToString());
     }
 
     public override ValueTask<string> Solve_2()
@@ -38,7 +38,7 @@ public class Day_05 : BaseDay
             overlaps += FindOverlaps(line);
         }
 
-        return new($"{overlaps}");
+        return new(overlaps.ToString());
     }
 
     private int FindOverlaps(int[] line)
