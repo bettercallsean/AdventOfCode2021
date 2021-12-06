@@ -25,11 +25,7 @@ internal class Day_06 : BaseDay
 
     private long GetNumberOfSpawnsAfterXAmountOfDays(int endDayCount)
     {
-        var spawnRates = Enumerable.Range(0, 9).Select(x => new
-        {
-            Key = x,
-            Value = Convert.ToInt64(_input.Where(y => y == x).Count())
-        }).ToDictionary(x => x.Key, x => x.Value);
+        var spawnRates = CreateSpawnRateArray();
 
         var dayCount = 0;
 
@@ -37,31 +33,47 @@ internal class Day_06 : BaseDay
         {
             var previousNumberOfSpawns = 0L;
 
-            foreach (var day in spawnRates.Reverse())
+            for (int i = spawnRates.Length - 1; i >= 0; i--)
             {
-                if (day.Key == 8)
+                if (i == 8)
                 {
-                    previousNumberOfSpawns = day.Value;
+                    previousNumberOfSpawns = spawnRates[i];
                     spawnRates[8] = 0;
                 }
-                else if (day.Key == 0)
+                else if (i == 0)
                 {
-                    spawnRates[6] += day.Value;
-                    spawnRates[8] = day.Value;
+                    spawnRates[6] += spawnRates[i];
+                    spawnRates[8] = spawnRates[i];
 
-                    spawnRates[day.Key] = previousNumberOfSpawns;
-                    previousNumberOfSpawns = day.Value;
+                    var tmp = spawnRates[i];
+
+                    spawnRates[i] = previousNumberOfSpawns;
+                    previousNumberOfSpawns = tmp;
                 }
                 else
                 {
-                    spawnRates[day.Key] = previousNumberOfSpawns;
-                    previousNumberOfSpawns = day.Value;
+                    var tmp = spawnRates[i];
+
+                    spawnRates[i] = previousNumberOfSpawns;
+                    previousNumberOfSpawns = tmp;
                 }
             }
 
             dayCount++;
         }
 
-        return spawnRates.Sum(x => x.Value);
+        return spawnRates.Sum();
+    }
+
+    private long[] CreateSpawnRateArray()
+    {
+        var spawns = new long[9];
+
+        for (int i = 0; i < 9; i++)
+        {
+            spawns[i] = Convert.ToInt64(_input.Where(x => x == i).Count());
+        }
+
+        return spawns;
     }
 }
