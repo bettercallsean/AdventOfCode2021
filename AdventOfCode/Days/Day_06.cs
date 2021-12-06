@@ -28,7 +28,6 @@ internal class Day_06 : BaseDay
     private long GetNumberOfSpawnsAfterXAmountOfDays(int endDayCount)
     {
         var spawnRates = _input.ToArray();
-
         var dayCount = 0;
 
         while (dayCount < endDayCount)
