@@ -2,11 +2,13 @@
 
 internal class Day_06 : BaseDay
 {
-    private readonly int[] _input;
+    private readonly long[] _input;
 
     public Day_06()
     {
-        _input = File.ReadAllText(InputFilePath).Split(',').Select(int.Parse).ToArray();
+        var input = File.ReadAllText(InputFilePath).Split(',').Select(int.Parse).ToArray();
+
+        _input = Enumerable.Range(0, 9).Select(i => Convert.ToInt64(input.Where(x => x == i).Count())).ToArray();
     }
 
     public override ValueTask<string> Solve_1()
@@ -25,7 +27,7 @@ internal class Day_06 : BaseDay
 
     private long GetNumberOfSpawnsAfterXAmountOfDays(int endDayCount)
     {
-        var spawnRates = CreateSpawnRateArray();
+        var spawnRates = _input.ToArray();
 
         var dayCount = 0;
 
@@ -51,17 +53,5 @@ internal class Day_06 : BaseDay
         }
 
         return spawnRates.Sum();
-    }
-
-    private long[] CreateSpawnRateArray()
-    {
-        var spawns = new long[9];
-
-        for (int i = 0; i < 9; i++)
-        {
-            spawns[i] = Convert.ToInt64(_input.Where(x => x == i).Count());
-        }
-
-        return spawns;
     }
 }
