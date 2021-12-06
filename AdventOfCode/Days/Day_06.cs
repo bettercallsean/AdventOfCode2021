@@ -35,12 +35,7 @@ internal class Day_06 : BaseDay
 
             for (int i = spawnRates.Length - 1; i >= 0; i--)
             {
-                if (i == 8)
-                {
-                    previousNumberOfSpawns = spawnRates[i];
-                    spawnRates[8] = 0;
-                }
-                else if (i == 0)
+                if (i == 0)
                 {
                     spawnRates[6] += spawnRates[i];
                     spawnRates[8] = spawnRates[i];
