@@ -39,19 +39,12 @@ internal class Day_06 : BaseDay
                 {
                     spawnRates[6] += spawnRates[i];
                     spawnRates[8] = spawnRates[i];
-
-                    var tmp = spawnRates[i];
-
-                    spawnRates[i] = previousNumberOfSpawns;
-                    previousNumberOfSpawns = tmp;
                 }
-                else
-                {
-                    var tmp = spawnRates[i];
 
-                    spawnRates[i] = previousNumberOfSpawns;
-                    previousNumberOfSpawns = tmp;
-                }
+                var tmp = spawnRates[i];
+
+                spawnRates[i] = previousNumberOfSpawns;
+                previousNumberOfSpawns = tmp;
             }
 
             dayCount++;
