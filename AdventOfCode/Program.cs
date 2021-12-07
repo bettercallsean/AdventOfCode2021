@@ -1,6 +1,6 @@
 ﻿if (args.Length == 0)
 {
-    Solver.SolveLast(new SolverConfiguration { ClearConsole = false });
+    Solver.SolveLast(new SolverConfiguration { ShowConstructorElapsedTime = true, ClearConsole = false });
 }
 else if (args.Length == 1 && args[0].Contains("all", StringComparison.CurrentCultureIgnoreCase))
 {
