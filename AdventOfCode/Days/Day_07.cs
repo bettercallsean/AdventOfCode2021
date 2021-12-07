@@ -35,10 +35,10 @@ internal class Day_07 : BaseDay
     {
         var lowerQuartile = Convert.ToInt32((_input.Count + 1) * .25);
         var upperQuartile = Convert.ToInt32((_input.Count + 1) * .75);
-        var fuelCosts = Enumerable.Range(lowerQuartile - 1, upperQuartile + 1).ToArray();
+        var interquartileRange = Enumerable.Range(lowerQuartile - 1, upperQuartile + 1).ToArray();
         var lowestFuelCost = long.MaxValue;
 
-        foreach (var horizontalPosition in fuelCosts)
+        foreach (var horizontalPosition in interquartileRange)
         {
             var fuelCost = 0;
 
