@@ -38,14 +38,14 @@ internal class Day_07 : BaseDay
         var interquartileRange = Enumerable.Range(lowerQuartile - 1, upperQuartile + 1).ToArray();
         var lowestFuelCost = long.MaxValue;
 
-        foreach (var horizontalPosition in interquartileRange)
+        foreach (var position in interquartileRange)
         {
             var fuelCost = 0;
 
-            foreach (var position in _input)
+            foreach (var positionComparison in _input)
             {
-                var horizontalDifference = Math.Abs(horizontalPosition - position.Key);
-                fuelCost += (horizontalDifference * (horizontalDifference + 1) / 2) * position.Value;
+                var horizontalDifference = Math.Abs(position - positionComparison.Key);
+                fuelCost += (horizontalDifference * (horizontalDifference + 1) / 2) * positionComparison.Value;
             }
 
             lowestFuelCost = fuelCost < lowestFuelCost ? fuelCost : lowestFuelCost;
