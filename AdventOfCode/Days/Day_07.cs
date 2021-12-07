@@ -35,18 +35,20 @@ internal class Day_07 : BaseDay
     {
         var lowerQuartile = Convert.ToInt32((_input.Count + 1) * .25);
         var upperQuartile = Convert.ToInt32((_input.Count + 1) * .75);
-        var fuelCosts = Enumerable.Range(lowerQuartile - 1, upperQuartile + 1).ToDictionary(x => x, x => 0); ;
+        var fuelCosts = Enumerable.Range(lowerQuartile - 1, upperQuartile + 1).ToArray();
         var lowestFuelCost = long.MaxValue;
 
-        foreach (var horizontalPos in fuelCosts)
+        foreach (var horizontalPosition in fuelCosts)
         {
+            var fuelCost = 0;
+
             foreach (var position in _input)
             {
-                var horizontalDifference = Math.Abs(horizontalPos.Key - position.Key);
-                fuelCosts[horizontalPos.Key] += (horizontalDifference * (horizontalDifference + 1) / 2) * position.Value;
+                var horizontalDifference = Math.Abs(horizontalPosition - position.Key);
+                fuelCost += (horizontalDifference * (horizontalDifference + 1) / 2) * position.Value;
             }
 
-            lowestFuelCost = fuelCosts[horizontalPos.Key] < lowestFuelCost ? fuelCosts[horizontalPos.Key] : lowestFuelCost;
+            lowestFuelCost = fuelCost < lowestFuelCost ? fuelCost : lowestFuelCost;
         }
 
         return new(lowestFuelCost.ToString());
