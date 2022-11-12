@@ -38,19 +38,19 @@ internal class Day_10 : BaseDay
         for (var i = 0; i < _input.Length; i++)
         {
             var line = _input[i];
-            var openingBracketsIndex = new Stack<(char Bracket, int Index)>();
+            var openingBracketsIndex = new Stack<char>();
 
             for (var j = 0; j < line.Length; j++)
             {
                 var bracket = line[j];
                 if (_openingBrackets.Contains(bracket))
                 {
-                    openingBracketsIndex.Push((bracket, j));
+                    openingBracketsIndex.Push(bracket);
                 }
                 else
                 {
                     var lastOpeningBracket = openingBracketsIndex.First();
-                    if (lastOpeningBracket.Bracket == _closingBracketPairs[bracket])
+                    if (lastOpeningBracket == _closingBracketPairs[bracket])
                     {
                         openingBracketsIndex.Pop();
                     }
@@ -96,19 +96,19 @@ internal class Day_10 : BaseDay
             }
 
             var line = _input[i];
-            var openingBracketsIndex = new Stack<(char Bracket, int Index)>();
+            var openingBracketsIndex = new Stack<char>();
 
             for (var j = 0; j < line.Length; j++)
             {
                 var bracket = line[j];
                 if (_openingBrackets.Contains(bracket))
                 {
-                    openingBracketsIndex.Push((bracket, j));
+                    openingBracketsIndex.Push(bracket);
                 }
                 else
                 {
                     var lastOpeningBracket = openingBracketsIndex.First();
-                    if (lastOpeningBracket.Bracket == _closingBracketPairs[bracket])
+                    if (lastOpeningBracket == _closingBracketPairs[bracket])
                     {
                         openingBracketsIndex.Pop();
                     }
@@ -118,7 +118,7 @@ internal class Day_10 : BaseDay
             foreach (var openingBracket in openingBracketsIndex)
             {
                 corruptedBracketsTotal *= 5;
-                var closingBracket = openingBracketPairs[openingBracket.Bracket];
+                var closingBracket = openingBracketPairs[openingBracket];
                 corruptedBracketsTotal += bracketValues[closingBracket];
             }
 
