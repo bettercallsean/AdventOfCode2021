@@ -1,6 +1,4 @@
-﻿using Spectre.Console;
-
-namespace AdventOfCode.Days;
+﻿namespace AdventOfCode.Days;
 internal class Day_10 : BaseDay
 {
     private readonly char[][] _input;
