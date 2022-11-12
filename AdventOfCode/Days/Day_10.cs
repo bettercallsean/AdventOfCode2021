@@ -15,7 +15,7 @@ internal class Day_10 : BaseDay
         {'>', '<' }
     };
 
-    private List<int> _corruptLines = new List<int>();
+    private readonly List<int> _corruptLines = new List<int>();
 
     public Day_10()
     {
