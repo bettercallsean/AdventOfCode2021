@@ -15,8 +15,6 @@ internal class Day_11 : BaseDay
 
     public override ValueTask<string> Solve_1()
     {
-        _input = File.ReadAllLines(InputFilePath).Select(x => x.ToArray().Select(x => x - '0').ToArray()).ToArray();
-
         var flashCount = 0;
         for (var i = 0; i < 100; i++)
         {
