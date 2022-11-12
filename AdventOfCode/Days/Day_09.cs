@@ -65,9 +65,7 @@ internal class Day_09 : BaseDay
 
         foreach (var basin in _basins)
         {
-            var basinSize = 1;
-
-            basinSize = Foo(basin.X, basin.Y, basinSize);
+            var basinSize = Foo(basin.X, basin.Y, 1);
 
             largestBasins.Add(basinSize);
         }
@@ -110,7 +108,6 @@ internal class Day_09 : BaseDay
         }
 
         return basinSize;
-
     }
 
     private bool IsValidCoordinate(int x, int y)
