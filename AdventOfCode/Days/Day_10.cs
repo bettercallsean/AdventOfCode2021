@@ -8,10 +8,7 @@ internal class Day_10 : BaseDay
     {
         '(', '{', '[', '<',
     };
-    private readonly char[] _closingBrackets =
-    {
-        ')', '}', ']', '>',
-    };
+
     private readonly Dictionary<char, char> _closingBracketPairs = new Dictionary<char, char>
     {
         {')', '(' },
